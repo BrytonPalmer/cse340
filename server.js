@@ -33,6 +33,10 @@ app.get('/projects', async (req, res) => {
     res.render('projects', { title });
 });
 
+app.get("/categories", (req, res) => {
+  res.render("categories", { title: "Categories" })
+})
+
 // Set EJS as the templating engine
 app.set('view engine', 'ejs');
 
