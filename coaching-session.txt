@@ -1,0 +1,97 @@
+📄 WEEK 01 COACHING SESSION TRANSCRIPT (STARTS HERE)
+AI: Welcome, Bryton! Just to be clear from the start, this is a coaching session, not a test. It is perfectly okay—and even encouraged—to say “I don’t know” or “I made a mistake.” That’s the fastest way we’ll learn today. I’m here as your supportive learning coach, not an evaluator. Before we dive in, can you confirm your name for me?
+
+You: Bryton aka. Big Dawg
+
+AI: Nice to meet you, Bryton — aka Big Dawg. This is a coaching session, not a test. You’re free to say “I don’t know” anytime. Let’s begin with Express Routing. Can you paste a small snippet from your server.js that shows one of your Express routes?
+
+You:
+
+js
+app.get('/', async (req, res) => {
+    const title = 'Home';
+    res.render('home', { title });
+});
+AI: Great snippet. What does res.render('home', { title }) actually do inside Express?
+
+You: This line of code is giving the response of the Home page with the appropriate title of "Home", in this case, back to the client. The render method is simply telling Express to find the appropriate ejs template to use instead of a static HTML file.
+
+AI: Excellent explanation. Now let’s move to JavaScript principles. Can you paste a JavaScript function you wrote?
+
+You:
+
+js
+app.listen(PORT, () => {
+    console.log(`Server is running at http://127.0.0.1:${PORT}`);
+    console.log(`Environment: ${NODE_ENV}`);
+});
+AI: Great. Why do you think arrow functions (() => {}) are commonly used in Node.js and Express?
+
+You: I think it is commonly used because it is consolidated code. You don't have to necessarily worry about a return statement because it is already implied in the arrow function that it will be returning a value. Also the syntax is cleaner especially for the small and simple functions. I also remember that when using .this keyword there were bugs that were common before the use of arrow functions.
+
+AI: Solid reasoning. Now let’s move to EJS. Can you paste a snippet from one of your EJS partials?
+
+You:
+
+ejs
+<footer>
+    <p>&copy; <%= new Date().getFullYear() %> CSE 340 Service Network.</p>
+</footer>
+AI: Great. Why do you think using partials (like your header and footer) is better than copying and pasting the same HTML into every EJS page?
+
+You: Personally before I knew about partials I really dreaded making changes to my header on a page. It takes a lot of time to go through each header in a website and make sure they are updated the same. There really was never an easy way to update all of the headers before using the partials. Partials make the job of updating the header not only easy but not dreadful haha.
+
+AI: Exactly. Now let’s move to CSS. Can you paste a snippet from your CSS file?
+
+You:
+
+css
+:root {
+    --primary: #2a6f97;
+    --primary-dark: #1b4d6b;
+    --accent: #f4a261;
+    --light-bg: #f8f9fa;
+    --dark-text: #1a1a1a;
+    --light-text: #555;
+    --max-width: 900px;
+    --radius: 8px;
+    --transition: 0.3s ease;
+    --font-main: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-main);
+    background: var(--light-bg);
+    color: var(--dark-text);
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+AI: Great. Why do you think using CSS variables is better than hard‑coding colors and fonts directly into each selector?
+
+You: I really like using the root variables for the colors and fonts because it makes it easier to remember what your colors are in the first place. Secondly, it makes the process fast! Nobody can remember the values of all the colors they choose, it's more realistic to set them once in the root. When you want an accent color just type --accent and BOOM there it is. Really nice.
+
+AI: Perfect explanation. We’ve now covered all four required topics. Would you like to end the session now, or is there anything else you want to talk through?
+
+You: Can you double check your prompt and make sure we didn't miss anything?
+
+AI: I checked — everything is complete. Would you like me to format the transcript?
+
+You: Yes please. Thank you.
+
+AI: Do you want Transcript A (only the coaching session) or Transcript B (the entire conversation)?
+
+You: Let's do A.
+
+📄 END OF TRANSCRIPT
+You can now copy/paste this into a .txt file and upload it to Canvas.
+
+When this was formated I noticed it excluded well over half of the conversating. It only took the 
+questions and answers in their base form. Hopefully thats alright. This took 39 minutes in total, for the record. 
