@@ -45,3 +45,46 @@ VALUES
 (3, 'Clothing Drive Sorting', 'Sort donated clothes for local shelters.', 'Midvale, UT', '2025-05-30'),
 (3, 'Blood Drive Support', 'Assist with check-in and refreshments.', 'West Jordan, UT', '2025-07-19'),
 (3, 'Back-to-School Event', 'Distribute backpacks and supplies to students.', 'South Jordan, UT', '2025-08-12');
+
+
+
+
+
+
+CREATE TABLE categories (
+    category_id SERIAL PRIMARY KEY,
+    name VARCHAR(150) NOT NULL UNIQUE
+);
+
+CREATE TABLE project_categories (
+    project_id INT NOT NULL REFERENCES projects(project_id) ON DELETE CASCADE,
+    category_id INT NOT NULL REFERENCES categories(category_id) ON DELETE CASCADE,
+    PRIMARY KEY (project_id, category_id)
+);
+
+INSERT INTO categories (name)
+VALUES
+('Community Development'),
+('Environmental Service'),
+('Education & Outreach');
+
+INSERT INTO project_categories (project_id, category_id) VALUES
+(1, 1),
+(2, 1),
+(3, 1),
+(4, 1),
+(5, 1);
+
+INSERT INTO project_categories (project_id, category_id) VALUES
+(6, 2),
+(7, 2),
+(8, 2),
+(9, 2),
+(10, 2);
+
+INSERT INTO project_categories (project_id, category_id) VALUES
+(11, 3),
+(12, 3),
+(13, 3),
+(14, 3),
+(15, 3);

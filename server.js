@@ -4,7 +4,7 @@ import path from 'path';
 import { testConnection } from './src/models/db.js';
 import { getAllOrganizations } from './src/models/organizations.js';
 import { getAllProjects } from "./src/models/projects.js";
-
+import { getAllCategories } from "./src/models/categories.js";
 
 
 const NODE_ENV = process.env.NODE_ENV?.toLowerCase() || 'production';
@@ -43,9 +43,13 @@ app.get("/projects", async (req, res) => {
     });
 });
 
-app.get("/categories", (req, res) => {
-  res.render("categories", { title: "Categories" })
-})
+app.get("/categories", async (req, res) => {
+    const data = await getAllCategories();
+    res.render("categories", {
+        title: "Categories",
+        categories: data.rows
+    });
+});
 
 // Set EJS as the templating engine
 app.set('view engine', 'ejs');
