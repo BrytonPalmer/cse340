@@ -1,0 +1,109 @@
+============================================================
+WEEK 02 COACHING SESSION TRANSCRIPT
+Student: Bryton Palmer
+Course: Web Backend Development
+Session Type: Learning Activity (Not a Test)
+============================================================
+
+COACH: Welcome! Just to be clear from the start, this is a coaching session, not a test. It is perfectly okay—and even encouraged—to say “I don’t know” or “I made a mistake.” That’s the fastest way we’ll learn today. Are you Bryton?
+
+BRYTON: Yes.
+
+------------------------------------------------------------
+TOPIC 1 — RELATIONAL DATABASE DESIGN
+------------------------------------------------------------
+
+BRYTON (SQL Snippet):
+CREATE TABLE projects (
+    project_id SERIAL PRIMARY KEY,
+    organization_id INT NOT NULL REFERENCES organizations(organization_id),
+    title VARCHAR(200) NOT NULL,
+    description TEXT NOT NULL,
+    location VARCHAR(255) NOT NULL,
+    date DATE NOT NULL
+);
+
+COACH: Why did you choose to put organization_id in the projects table?
+
+BRYTON: I included organization_id in the projects table because it’s the simplest way to show which organization a project belongs to. If I tried to keep a list of project IDs inside the organizations table, it would get messy and hard to manage. This way, the relationship stays clean and the database can keep everything consistent.
+
+------------------------------------------------------------
+TOPIC 2 — SERVER-SIDE DATA ACCESS LOGIC (NODE.JS)
+------------------------------------------------------------
+
+BRYTON (Code Snippet):
+export async function getAllProjects() {
+    const sql = `
+        SELECT 
+            p.project_id,
+            p.title,
+            p.description,
+            p.location,
+            p.date,
+            o.name AS organization_name
+        FROM projects p
+        JOIN organizations o
+        ON p.organization_id = o.organization_id
+        ORDER BY p.date;
+    `;
+    return db.query(sql);
+}
+
+COACH: What does the returned data look like?
+
+BRYTON: When this function runs, db.query(sql) gives me an array of objects, where each object represents one project and already includes the organization name from the JOIN. That shape is really useful for the EJS page because I can just loop through the array and print each project’s info without doing any extra processing. It’s already in the exact format the template needs.
+
+------------------------------------------------------------
+TOPIC 3 — EXPRESS SERVER LOGIC AND ROUTING
+------------------------------------------------------------
+
+BRYTON (Route Snippet):
+app.get('/organizations', async (req, res) => {
+    const organizations = await getAllOrganizations();
+    const title = 'Our Partner Organizations';
+
+    res.render('organizations', { title, organizations });
+});
+
+COACH: What does Express do when res.render() runs?
+
+BRYTON: When Express hits res.render(), it basically grabs your EJS file, plugs in the data you passed (title and organizations), and turns that template into a full HTML page. All the <%= %> spots get replaced with real values, loops get filled in, and once the page is fully built, Express sends that finished HTML back to the browser so it can show it like any normal webpage.
+
+------------------------------------------------------------
+TOPIC 4 — CLIENT-SIDE RENDERING (EJS)
+------------------------------------------------------------
+
+BRYTON (EJS Snippet):
+<%- include('partials/header') %>
+
+<main>
+    <h1><%= title %></h1>
+
+    <ul>
+        <% categories.forEach(cat => { %>
+            <li><%= cat.name %></li>
+        <% }) %>
+    </ul>
+</main>
+
+<%- include('partials/footer') %>
+
+COACH: Why does <%- include() %> use the raw tag?
+
+BRYTON: EJS uses the raw tag <%- for includes because the header is already real HTML, and we want it to drop into the page exactly as it is. If it used the normal <%=, EJS would escape everything and the HTML wouldn’t actually render.
+
+------------------------------------------------------------
+REFLECTION
+------------------------------------------------------------
+
+COACH: Which area feels most natural, and which feels less steady?
+
+BRYTON: Out of the four areas, the one that feels the most natural to me is the routing piece. The flow of “request comes in, I grab the data, then I render the page” just makes sense in my head. The part that still feels a little less steady is the database design side. Not because it’s overly complicated, but because deciding how things should relate — and why — takes a bit more practice to feel automatic.
+
+COACH: Final question — how would you explain why many-to-many needs a join table?
+
+BRYTON: A many‑to‑many relationship needs a join table because each side can have lots of connections, and there’s no clean place to store all those links. The join table acts like a little list of pairs — it just says “this thing is connected to that thing.” It keeps everything organized and easy for the database to work with.
+
+============================================================
+END OF COACHING SESSION TRANSCRIPT
+============================================================
