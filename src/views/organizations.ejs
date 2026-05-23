@@ -12,7 +12,12 @@
                 <img src="/images/<%= org.logo_filename %>" 
                      alt="<%= org.name %> logo">
 
-                <strong><%= org.name %></strong><br>
+                <strong>
+                    <a href="/organization/<%= org.organization_id %>">
+                        <%= org.name %>
+                    </a>
+                </strong><br>
+
                 <%= org.contact_email %>
             </li>
         <% }) %>
