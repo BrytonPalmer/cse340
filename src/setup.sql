@@ -88,3 +88,5 @@ INSERT INTO project_categories (project_id, category_id) VALUES
 (13, 3),
 (14, 3),
 (15, 3);
+https://github.com/BrytonPalmer/cse340
+https://cse340-bp.onrender.com/
