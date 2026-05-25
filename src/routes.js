@@ -10,7 +10,7 @@ import { showProjectDetailsPage } from './controllers/projects.js';
 import { showCategoryDetailsPage } from './controllers/categories.js';
 import { showNewOrganizationForm } from './controllers/organizations.js';
 import { processNewOrganizationForm } from './controllers/organizations.js';
-
+import { organizationValidation } from './controllers/organizations.js'
 const router = express.Router();
 
 router.get('/', showHomePage);
@@ -20,7 +20,7 @@ router.get('/projects', showProjectsPage);
 router.get('/categories', showCategoriesPage);
 router.get('/project/:id', showProjectDetailsPage);
 router.get('/category/:id', showCategoryDetailsPage);
-router.post('/new-organization', processNewOrganizationForm);
+router.post('/new-organization', organizationValidation,processNewOrganizationForm);
 
 
 // Route for new organization page
