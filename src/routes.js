@@ -13,11 +13,14 @@ import { processNewOrganizationForm } from './controllers/organizations.js';
 import { organizationValidation } from './controllers/organizations.js'
 import { processEditOrganizationForm } from './controllers/organizations.js'
 import { showEditOrganizationForm } from './controllers/organizations.js'
-import {  showNewProjectForm } from './controllers/projects.js';
-import {processNewProjectForm } from './controllers/projects.js';
+import { showNewProjectForm } from './controllers/projects.js';
+import { processNewProjectForm } from './controllers/projects.js';
 import { projectValidation } from './controllers/projects.js';
 import { showAssignCategoriesForm } from './controllers/categories.js';
 import { processAssignCategoriesForm } from './controllers/categories.js';
+import { showEditProjectForm } from './controllers/projects.js';
+import { processEditProjectForm } from './controllers/projects.js';
+
 const router = express.Router();
 
 router.get('/', showHomePage);
@@ -36,6 +39,9 @@ router.post('/edit-organization/:id', organizationValidation, processEditOrganiz
 
 router.get('/project/:projectId/assign-categories', showAssignCategoriesForm);
 router.post('/project/:projectId/assign-categories', processAssignCategoriesForm);
+
+router.get('/edit-project/:id', showEditProjectForm);
+router.post('/edit-project/:id', processEditProjectForm);
 
 // Route for new organization page
 router.get('/new-organization', showNewOrganizationForm);

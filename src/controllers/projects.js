@@ -3,6 +3,7 @@ import { getCategoriesForProject } from '../models/categories.js';
 import { createProject } from '../models/projects.js';
 import { getAllOrganizations } from '../models/organizations.js';
 import { body, validationResult } from 'express-validator';
+import { updateProject } from '../models/projects.js';
 
 
 const NUMBER_OF_UPCOMING_PROJECTS = 5;
@@ -90,9 +91,60 @@ const processNewProjectForm = async (req, res) => {
     res.redirect('/projects'); // adjust if your list route is different
 };
 
+export async function showEditProjectForm(req, res) {
+    try {
+        const projectId = req.params.id;
+
+        const project = await getProjectDetails(projectId);
+        if (!project) {
+            req.flash('error', 'Project not found.');
+            return res.redirect('/projects');
+        }
+
+        const organizations = await getAllOrganizations();
+
+        res.render('edit-project', {
+            title: "Edit Service Project",
+            project,
+            organizations
+        });
+
+    } catch (error) {
+        console.error("Error loading edit project form:", error);
+        req.flash('error', 'Unable to load edit form.');
+        res.redirect('/projects');
+    }
+}
+
+export async function processEditProjectForm(req, res) {
+    try {
+        const projectId = req.params.id;
+
+        const { title, description, location, date, organizationId } = req.body;
+
+        await updateProject(
+            projectId,
+            title,
+            description,
+            location,
+            date,
+            organizationId
+        );
+
+        req.flash('success', 'Project updated successfully!');
+        res.redirect(`/project/${projectId}`);
+
+    } catch (error) {
+        console.error("Error updating project:", error);
+        req.flash('error', 'Unable to update project.');
+        res.redirect(`/edit-project/${req.params.id}`);
+    }
+}
+
+
 export {
     // existing exports...
     showNewProjectForm,
     processNewProjectForm,
-    projectValidation
+    projectValidation,
 };
