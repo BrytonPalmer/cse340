@@ -6,9 +6,19 @@
     <ul>
         <% projects.forEach(project => { %>
             <li>
-                <strong><%= project.date.toLocaleDateString() %></strong>:
-                <%= project.title %>
-                (<%= project.organization_name %>)
+                <strong>
+                    <a href="/project/<%= project.project_id %>">
+                        <%= project.title %>
+                    </a>
+                </strong>
+                <br>
+
+                <a href="/organization/<%= project.organization_id %>">
+                    <%= project.organization_name %>
+                </a>
+                <br>
+
+                <em><%= new Date(project.date).toLocaleDateString() %></em>
             </li>
         <% }) %>
     </ul>
