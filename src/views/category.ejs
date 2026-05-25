@@ -1,0 +1,23 @@
+<%- include('partials/header') %>
+
+<main>
+    <h1><%= category.name %></h1>
+
+    <h2>Projects in this Category</h2>
+
+    <ul>
+        <% projects.forEach(p => { %>
+            <li>
+                <a href="/project/<%= p.project_id %>">
+                    <%= p.title %>
+                </a>
+                — <%= new Date(p.date).toDateString() %>
+                (with <%= p.organization_name %>)
+            </li>
+        <% }) %>
+    </ul>
+
+    <p><a href="/categories">← Back to Categories</a></p>
+</main>
+
+<%- include('partials/footer') %>

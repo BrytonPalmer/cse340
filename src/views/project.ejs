@@ -17,6 +17,19 @@
         </a>
     </p>
 
+    <p><strong>Categories:</strong>
+        <% if (categories.length === 0) { %>
+            None
+        <% } else { %>
+            <% categories.forEach(cat => { %>
+                <a href="/category/<%= cat.category_id %>" 
+                style="padding:4px 8px; background:#eef; border-radius:4px; margin-right:6px;">
+                    <%= cat.name %>
+                </a>
+            <% }) %>
+        <% } %>
+    </p>
+
     <hr>
 
     <p>
