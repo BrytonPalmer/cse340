@@ -2,8 +2,8 @@ import {
     getUpcomingProjects,
     getProjectDetails
 } from '../models/projects.js';
-import { getCategoriesForProject } from '../models/categories.js';
 
+import { getCategoriesForProject } from '../models/categories.js';
 
 const NUMBER_OF_UPCOMING_PROJECTS = 5;
 
@@ -22,28 +22,7 @@ export async function showProjectsPage(req, res) {
     }
 }
 
-// Show details for a single project
-export async function showProjectDetailsPage(req, res) {
-    try {
-        const projectId = req.params.id;
-        const project = await getProjectDetails(projectId);
-
-        if (!project) {
-            return res.status(404).render("errors/404", {
-                title: "Project Not Found"
-            });
-        }
-
-        res.render("project", {
-            title: project.title,
-            project
-        });
-    } catch (error) {
-        console.error("Error loading project details:", error);
-        res.status(500).send("Server Error");
-    }
-}
-
+// Show details for a single project (FINAL VERSION)
 export async function showProjectDetailsPage(req, res) {
     try {
         const projectId = req.params.id;
