@@ -13,12 +13,17 @@ import { processNewOrganizationForm } from './controllers/organizations.js';
 import { organizationValidation } from './controllers/organizations.js'
 import { processEditOrganizationForm } from './controllers/organizations.js'
 import { showEditOrganizationForm } from './controllers/organizations.js'
+import {  showNewProjectForm } from './controllers/projects.js';
+import {processNewProjectForm } from './controllers/projects.js';
+import { projectValidation } from './controllers/projects.js';
 const router = express.Router();
 
 router.get('/', showHomePage);
 router.get('/organizations', showOrganizationsPage);
 router.get('/organization/:id', showOrganizationDetailsPage);
 router.get('/projects', showProjectsPage);
+router.get('/new-project', showNewProjectForm);
+router.post('/new-project', projectValidation, processNewProjectForm);
 router.get('/categories', showCategoriesPage);
 router.get('/project/:id', showProjectDetailsPage);
 router.get('/category/:id', showCategoryDetailsPage);
@@ -26,6 +31,8 @@ router.post('/new-organization', organizationValidation,processNewOrganizationFo
 
 router.get('/edit-organization/:id', showEditOrganizationForm);
 router.post('/edit-organization/:id', organizationValidation, processEditOrganizationForm);
+
+
 
 // Route for new organization page
 router.get('/new-organization', showNewOrganizationForm);
