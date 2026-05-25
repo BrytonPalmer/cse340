@@ -1,0 +1,118 @@
+WEEK 03 COACHING SESSION TRANSCRIPT — BRYTON PALMER
+
+Welcome! Just to be clear from the start, this is a coaching session, not a test. It is perfectly okay—and even encouraged—to say "I don't know" or "I made a mistake." That's the fastest way we'll learn today.
+
+Coach: Before we begin, can you confirm your name?
+
+Bryton: Bryton Palmer
+
+Coach: Great, Bryton. How are you feeling as we start this session today?
+
+Bryton: I am feeling really good!
+
+Coach: Awesome. Let’s begin with Topic 1: Models. Can you paste one model function that takes a parameter and uses it in an SQL query?
+
+Bryton:
+export async function getProjectsForCategory(categoryId) {
+const sql = SELECT p.project_id, p.title, p.date, p.location, o.name AS organization_name FROM projects p JOIN project_categories pc ON p.project_id = pc.project_id JOIN organizations o ON p.organization_id = o.organization_id WHERE pc.category_id = $1 ORDER BY p.date;;
+const result = await db.query(sql, [categoryId]);
+return result.rows;
+}
+
+Coach: When you wrote this model function, what was your reasoning for using JOINs instead of separate queries?
+
+Bryton: I used the JOINs because I wanted everything in one place. In my head, “projects for a category” already includes the project info and the organization name, so it felt cleaner to let the database pull it all together instead of doing multiple separate queries. The project_categories table is the link between everything, so once I was joining that, it just made sense to keep going. It also avoids extra round‑trips and keeps the model responsible for shaping the data before it gets to the controller.
+
+Coach: Great reasoning. One more question for Topic 1: When you look at this function now, is there anything you might improve later?
+
+Bryton: It honestly feels right for the assignment. If I were thinking ahead to a bigger project, I might add better error handling or tidy up formatting, but nothing feels wrong. Any refactoring would just be polish.
+
+Coach: Perfect. Topic 1 complete.
+
+Topic 2 — Views
+
+Coach: Can you paste one EJS snippet that inserts dynamic data into a link?
+
+Bryton:
+<main>
+<h1><%= category.name %></h1>
+
+<h2>Projects in this Category</h2>
+
+<ul>
+<% projects.forEach(p => { %>
+<li>
+<a href="/project/<%= p.project_id %>">
+<%= p.title %>
+</a>
+— <%= new Date(p.date).toDateString() %>
+(with <%= p.organization_name %>)
+</li>
+<% }) %>
+</ul>
+
+<p><a href="/categories">← Back to Categories</a></p>
+</main>
+
+Coach: When you wrote this EJS snippet, what was your reasoning for putting the project ID directly in the link like /project/12 instead of using a query string?
+
+Bryton: I put the project ID directly in the link because it felt like the cleanest way to show that the page is specifically about that project. Using a path like /project/12 just reads more naturally to me than something like /project?id=12. It also lines up with how the router is usually set up in these assignments, so grabbing the parameter on the server side stays really straightforward.
+
+Coach: Excellent. Topic 2 complete.
+
+Topic 3 — Controllers
+
+Coach: Can you paste one controller function that uses a route parameter and explain why you structured it that way?
+
+Bryton:
+export async function showProjectDetailsPage(req, res) {
+try {
+const projectId = req.params.id;
+const project = await getProjectDetails(projectId);
+
+if (!project) {
+return res.status(404).render("errors/404", {
+title: "Project Not Found"
+});
+}
+
+const categories = await getCategoriesForProject(projectId);
+
+res.render("project", {
+title: project.title,
+project,
+categories
+});
+} catch (error) {
+console.error("Error loading project details:", error);
+res.status(500).send("Server Error");
+}
+}
+
+Coach: When you wrote this controller, what made you decide to check for a missing project before fetching categories?
+
+Bryton: I decided to check for a missing project first because it didn’t make sense to keep going if the main thing the page depends on wasn’t even there. The categories only matter if the project exists, so doing that check early kept the flow cleaner and avoided extra database work. It also let me handle the 404 right away.
+
+Coach: Great reasoning. Topic 3 complete.
+
+Topic 4 — Error Handling
+
+Coach: Can you paste one error‑handling snippet and explain why you structured it that way?
+
+Bryton:
+const testErrorPage = (req, res, next) => {
+const err = new Error('This is a test error');
+err.status = 500;
+next(err);
+};
+
+export { testErrorPage };
+
+Coach: When you wrote this function, why did you use next(err) instead of sending a response directly?
+
+Bryton: I used next(err) because I wanted this function to behave like a "trigger" for my global error handler, not like a full response handler on its own. The whole point was to make sure the central error middleware was working, so it made more sense to pass the error along. That way, all the formatting, logging, and status handling stay in one place.
+
+Coach: Excellent. Topic 4 complete.
+
+End of Coaching Session  
+All four required topics have been discussed with code snippets and explanations.
