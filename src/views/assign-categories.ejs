@@ -1,0 +1,41 @@
+<%- include('partials/header') %>
+
+<main>
+    <h1><%= title %></h1>
+
+    <h2>Project: <%= project.title %></h2>
+
+    <form action="/project/<%= project.project_id %>/assign-categories" method="POST">
+
+        <div class="category-list">
+            <% allCategories.rows.forEach(category => { %>
+
+                <% 
+                    // Check if this category is already assigned
+                    const isAssigned = assignedCategories.some(ac => ac.category_id === category.category_id);
+                %>
+
+                <div class="form-group">
+                    <label>
+                        <input 
+                            type="checkbox" 
+                            name="categoryIds" 
+                            value="<%= category.category_id %>"
+                            <%= isAssigned ? "checked" : "" %>
+                        >
+                        <%= category.name %>
+                    </label>
+                </div>
+
+            <% }) %>
+        </div>
+
+        <button type="submit">Save Categories</button>
+    </form>
+
+    <p>
+        <a href="/project/<%= project.project_id %>">Back to Project</a>
+    </p>
+</main>
+
+<%- include('partials/footer') %>
