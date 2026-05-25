@@ -1,4 +1,6 @@
 import db from './db.js'
+import pool from './db.js';
+
 
 const getAllOrganizations = async () => {
     const query = `
@@ -62,5 +64,18 @@ const createOrganization = async (name, description, contactEmail, logoFilename)
     return result.rows[0].organization_id;
 };
 
+const updateOrganization = async (id, name, description, contactEmail, logoFilename) => {
+    const query = `
+        UPDATE organizations
+        SET name = $1,
+            description = $2,
+            contact_email = $3,
+            logo_filename = $4
+        WHERE organization_id = $5
+    `;
 
-export { getAllOrganizations, getOrganizationDetails, createOrganization };
+    await pool.query(query, [name, description, contactEmail, logoFilename, id]);
+};
+
+
+export { getAllOrganizations, getOrganizationDetails, createOrganization, updateOrganization };
