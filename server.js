@@ -3,15 +3,15 @@ import express from 'express';
 import { fileURLToPath } from 'url';
 import path from 'path';
 import { testConnection } from './src/models/db.js';
-// import { getAllOrganizations } from './src/models/organizations.js';
-// import { getAllProjects } from "./src/models/projects.js";
-// import { getAllCategories } from "./src/models/categories.js";
+import session from 'express-session';
+import flash from './src/middleware/flash.js';
+
 
 const NODE_ENV = process.env.NODE_ENV?.toLowerCase() || 'production';
 const PORT = process.env.PORT || 3000;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
+const SESSION_SECRET = process.env.SESSION_SECRET;
 const app = express();
 
 /**
@@ -23,6 +23,14 @@ app.set('views', path.join(__dirname, 'src/views'));
 /**
  * Middleware
  */
+app.use(session({
+    secret: SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+    cookie: { maxAge: 60 * 60 * 1000 } // 1 hour
+}));
+// Use flash message middleware
+app.use(flash);
 // Log all incoming requests
 app.use((req, res, next) => {
     if (NODE_ENV === 'development') {
