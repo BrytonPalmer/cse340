@@ -37,38 +37,13 @@ app.use((req, res, next) => {
     next();
 });
 
+// Allow Express to receive and process common POST data
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
 // Serve static files
 app.use(express.static(path.join(__dirname, 'public')));
 
-/**
- * Routes
- */
-// app.get('/', async (req, res) => {
-//     const title = 'Home';
-//     res.render('home', { title });
-// });
-
-// app.get('/organizations', async (req, res) => {
-//     const organizations = await getAllOrganizations();
-//     const title = 'Our Partner Organizations';
-//     res.render('organizations', { title, organizations });
-// });
-
-// app.get("/projects", async (req, res) => {
-//     const data = await getAllProjects();
-//     res.render("projects", {
-//         title: "Service Projects",
-//         projects: data.rows
-//     });
-// });
-
-// app.get("/categories", async (req, res) => {
-//     const data = await getAllCategories();
-//     res.render("categories", {
-//         title: "Categories",
-//         categories: data.rows
-//     });
-// });
 app.use('/', router);
 // Catch-all route for 404 errors
 app.use((req, res, next) => {
