@@ -21,6 +21,11 @@ import { processAssignCategoriesForm } from './controllers/categories.js';
 import { showEditProjectForm } from './controllers/projects.js';
 import { processEditProjectForm } from './controllers/projects.js';
 
+import { showNewCategoryForm } from './controllers/categories.js';
+import { processNewCategoryForm } from './controllers/categories.js';
+import { showEditCategoryForm } from './controllers/categories.js';
+import { processEditCategoryForm } from './controllers/categories.js';
+import { categoryValidation } from './controllers/categories.js';
 const router = express.Router();
 
 router.get('/', showHomePage);
@@ -43,6 +48,11 @@ router.post('/project/:projectId/assign-categories', processAssignCategoriesForm
 router.get('/edit-project/:id', showEditProjectForm);
 router.post('/edit-project/:id', processEditProjectForm);
 
+router.get('/new-category', showNewCategoryForm);
+router.post('/new-category', categoryValidation, processNewCategoryForm);
+
+router.get('/edit-category/:id', showEditCategoryForm);
+router.post('/edit-category/:id', categoryValidation, processEditCategoryForm);
 // Route for new organization page
 router.get('/new-organization', showNewOrganizationForm);
 

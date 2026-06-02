@@ -92,7 +92,27 @@ export async function updateCategoryAssignments(projectId, categoryIds) {
     }
 }
 
-/* ---------------------------------------------------------
-   EXPORTS
---------------------------------------------------------- */
+// /* ---------------------------------------------------------
+//    EXPORTS
+// --------------------------------------------------------- */
 
+// 7️⃣ Create a new category
+export async function createCategory(name) {
+    const sql = `
+        INSERT INTO categories (name)
+        VALUES ($1)
+        RETURNING category_id;
+    `;
+    const result = await db.query(sql, [name]);
+    return result.rows[0].category_id;
+}
+
+// 8️⃣ Update an existing category
+export async function updateCategory(id, name) {
+    const sql = `
+        UPDATE categories
+        SET name = $1
+        WHERE category_id = $2;
+    `;
+    await db.query(sql, [name, id]);
+}
