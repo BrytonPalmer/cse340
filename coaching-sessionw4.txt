@@ -1,0 +1,44 @@
+WEEK 04 COACHING SESSION TRANSCRIPT
+-----------------------------------
+
+Assistant: Welcome! Just to be clear from the start, this is a coaching session, not a test. It is perfectly okay—and even encouraged—to say "I don't know" or "I made a mistake." That's the fastest way we'll learn today. And before we dive in: your name is Bryton, right? What part of Week 04 feels the most confusing or uncertain to you right now?
+
+User: I feel like the most challenging thing was getting my server.js file in the correct order. I know that it isn't confined to only the fourth week, but it has been the constant challenge.
+
+Assistant: Totally fair. Middleware order is one of the biggest pain points. When you think back to your server.js struggles, which part of the ordering felt the most confusing?
+
+User: I got the most tripped up when placing certain middleware, and also a flash code block. My render was "down" for 10 days because I had the order all wrong.
+
+Assistant: That makes sense. Let's move into Topic 1. Can you paste a form‑handling route?
+
+User: (Pastes processNewCategoryForm code)
+
+Assistant: Great snippet. When you wrote this handler, why did you validate first and return early?
+
+User: You validate first and return early because it keeps the route tight and predictable.
+
+Assistant: Exactly. Let's move to Topic 2. Can you paste an EJS snippet for an update form?
+
+User: (Pastes assign-categories.ejs snippet)
+
+Assistant: Perfect. Why did you choose `.some()` for checking assigned categories?
+
+User: It was the quickest way to check if a category was already assigned.
+
+Assistant: Good reasoning. Now Topic 3. Can you paste a sessions/flash snippet?
+
+User: (Pastes req.flash initialization code)
+
+Assistant: Nice. What was the hardest part of understanding flash/session timing?
+
+User: Understanding when the flash data actually got cleared.
+
+Assistant: Exactly. Now Topic 4. Can you paste your server‑side validation?
+
+User: (Pastes categoryValidation code)
+
+Assistant: Great. How did you decide what belonged on the server vs client?
+
+User: Client-side is convenience, server-side is enforcement.
+
+Assistant: Perfect. That completes all four topics.
