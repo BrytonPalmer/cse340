@@ -32,8 +32,12 @@ app.use(session({
 // Use flash message middleware
 app.use(flash);
 
+// app.use((req, res, next) => {
+//     res.locals.flash = () => req.flash();
+//     next();
+// });
 app.use((req, res, next) => {
-    res.locals.flash = () => req.flash();
+    res.locals.flash = req.flash.bind(req);
     next();
 });
 // Log all incoming requests
