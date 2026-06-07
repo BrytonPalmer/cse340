@@ -34,6 +34,8 @@ import { showLoginForm } from './controllers/users.js';
 import { processLoginForm } from './controllers/users.js';
 import { processLogout } from './controllers/users.js';
 
+import { requireLogin } from './controllers/users.js';
+import { showDashboard } from './controllers/users.js';
 
 const router = express.Router();
 
@@ -62,6 +64,9 @@ router.post('/new-category', categoryValidation, processNewCategoryForm);
 
 router.get('/edit-category/:id', showEditCategoryForm);
 router.post('/edit-category/:id', categoryValidation, processEditCategoryForm);
+
+// Protected dashboard route
+router.get('/dashboard', requireLogin, showDashboard);
 
 //user login routes
 router.get('/login', showLoginForm);

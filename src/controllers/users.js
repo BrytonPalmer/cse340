@@ -58,8 +58,10 @@ const processLoginForm = async (req, res) => {
 };
 
 const processLogout = (req, res) => {
+    // Flash BEFORE destroying the session
+    req.flash('success', 'Logout successful!');
+
     req.session.destroy(() => {
-        req.flash('success', 'Logout successful!');
         res.redirect('/login');
     });
 };
