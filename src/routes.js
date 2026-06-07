@@ -30,6 +30,11 @@ import { categoryValidation } from './controllers/categories.js';
 import { showUserRegistrationForm } from './controllers/users.js';
 import { processUserRegistrationForm } from './controllers/users.js';
 
+import { showLoginForm } from './controllers/users.js';
+import { processLoginForm } from './controllers/users.js';
+import { processLogout } from './controllers/users.js';
+
+
 const router = express.Router();
 
 router.get('/', showHomePage);
@@ -57,6 +62,11 @@ router.post('/new-category', categoryValidation, processNewCategoryForm);
 
 router.get('/edit-category/:id', showEditCategoryForm);
 router.post('/edit-category/:id', categoryValidation, processEditCategoryForm);
+
+//user login routes
+router.get('/login', showLoginForm);
+router.post('/login', processLoginForm);
+router.get('/logout', processLogout);
 
 // User registration routes
 router.get('/register', showUserRegistrationForm);
