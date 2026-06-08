@@ -20,6 +20,12 @@
             <% } else { %>
                 <li><a href="/logout">Logout</a></li>
             <% } %>
+
+            <% if (user && user.role_name === 'admin') { %>
+                <li><a href="/new-organization">New Organization</a></li>
+                <li><a href="/new-project">New Project</a></li>
+                <li><a href="/new-category">New Category</a></li>
+            <% } %>
         </ul>
     </nav>
 
