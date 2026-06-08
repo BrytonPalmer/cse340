@@ -1,0 +1,71 @@
+W05 Coaching Session Transcript — Bryton
+AI: Welcome! Just to be clear from the start, this is a coaching session, not a test. It is perfectly okay—and even encouraged—to say "I don't know" or "I made a mistake." That's the fastest way we'll learn today. What name would you like me to use for you during this coaching session?
+
+You: bryton
+
+AI: Great, Bryton — thanks for confirming. Let’s begin Topic 1.
+👉 Can you paste the part of your registration controller where you hash the user’s password?
+
+You:
+
+Code
+const salt = await bcrypt.genSalt(10)
+const passwordHash = await bcrypt.hash(password, salt)
+AI: Nice.
+👉 Why do we hash passwords instead of storing them directly?
+
+You:  
+we hash passwords because if someone ever gets into the database they still can’t read the real passwords… (full explanation)
+
+AI: Perfect.
+Now Topic 2.
+👉 Can you paste the login logic where you authenticate the user and store them in the session?
+
+You:
+
+Code
+const user = await authenticateUser(email, password)
+
+if (user) {
+    req.session.user = user
+    req.flash('success', 'Login successful!')
+    return res.redirect('/dashboard')
+}
+AI: Great.
+👉 When you assign req.session.user = user, what does that allow your app to do later?
+
+You:  
+it lets your app remember who the user is on every request… (full explanation)
+
+AI: Exactly.
+Now Topic 3.
+👉 Can you paste your requireLogin or requireRole middleware?
+
+You:
+
+Code
+const requireLogin = (req, res, next) => {
+    if (!req.session || !req.session.user) {
+        req.flash('error', 'You must be logged in to access that page.')
+        return res.redirect('/login')
+    }
+    next()
+}
+AI: Perfect.
+Now Topic 4.
+👉 Can you paste an EJS snippet showing role‑based link visibility?
+
+You:
+
+Code
+<% if (user && user.role_name === 'admin') { %>
+    <li><a href="/users">Users</a></li>
+<% } %>
+AI: Excellent — that completes all four required topics.
+👉 Would you like me to generate the full transcript?
+
+You: yes that would be nice. just in a nice text format
+
+AI: (Provided transcript)
+
+End of Transcript
