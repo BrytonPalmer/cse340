@@ -100,7 +100,7 @@ const requireRole = (role) => {
     };
 };
 
-import { getAllUsers } from '../models/users.js';
+
 
 const showAllUsers = async (req, res) => {
     try {
