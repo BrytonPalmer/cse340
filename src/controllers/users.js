@@ -2,6 +2,7 @@ console.log("USERS CONTROLLER LOADED");
 import bcrypt from 'bcrypt';
 import { createUser } from '../models/users.js';
 import { authenticateUser } from '../models/users.js';
+import { getAllUsers } from '../models/users.js';
 
 const showUserRegistrationForm = (req, res) => {
     res.render('register', { title: 'Register' });
@@ -99,6 +100,22 @@ const requireRole = (role) => {
     };
 };
 
+import { getAllUsers } from '../models/users.js';
+
+const showAllUsers = async (req, res) => {
+    try {
+        const users = await getAllUsers();
+        res.render('users', {
+            title: 'All Users',
+            users
+        });
+    } catch (error) {
+        console.error(error);
+        req.flash('error', 'Unable to load users.');
+        res.redirect('/dashboard');
+    }
+};
+
 export { 
     showUserRegistrationForm, 
     processUserRegistrationForm, 
@@ -107,5 +124,6 @@ export {
     processLogout,
     requireLogin,
     showDashboard,
-    requireRole
+    requireRole,
+    showAllUsers
 }; 

@@ -140,7 +140,8 @@ import {
     processLogout,
     requireLogin,
     requireRole,
-    showDashboard
+    showDashboard,
+    showAllUsers
 } from './controllers/users.js';
 
 // ERRORS
@@ -180,6 +181,8 @@ router.get('/dashboard', requireLogin, showDashboard);
 /* ============================
    ADMIN‑ONLY ROUTES
 ============================ */
+
+router.get('/users', requireRole('admin'), showAllUsers);
 
 /* --- ORGANIZATIONS --- */
 router.get('/new-organization', requireRole('admin'), showNewOrganizationForm);
