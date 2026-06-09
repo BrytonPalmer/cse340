@@ -1,4 +1,4 @@
-import db from '../db/index.js'
+import db from '../../db/index.js'
 
 async function addVolunteer(userId, projectId) {
     const result = await db.query(

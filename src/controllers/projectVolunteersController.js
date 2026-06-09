@@ -1,5 +1,6 @@
+
 import { addVolunteer, removeVolunteer } from '../models/projectVolunteersModel.js';
-import db from '../db/index.js'
+
 export async function volunteerForProject(req, res) {
     const userId = req.session.user.user_id;
     const projectId = req.params.id;
