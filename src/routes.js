@@ -2,6 +2,9 @@
 
 import express from 'express';
 
+import { volunteerForProject, removeVolunteerFromProject } 
+    from './controllers/projectVolunteersController.js';
+
 // HOME
 import { showHomePage } from './controllers/index.js';
 
@@ -116,6 +119,15 @@ router.post('/new-category', requireRole('admin'), categoryValidation, processNe
 
 router.get('/edit-category/:id', requireRole('admin'), showEditCategoryForm);
 router.post('/edit-category/:id', requireRole('admin'), categoryValidation, processEditCategoryForm);
+
+
+
+// Volunteer for a project
+router.post('/projects/:id/volunteer', requireLogin, volunteerForProject);
+
+// Remove volunteer signup
+router.post('/projects/:id/unvolunteer', requireLogin, removeVolunteerFromProject);
+
 
 /* ============================
    ERROR TEST ROUTE

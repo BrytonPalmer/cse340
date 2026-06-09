@@ -4,7 +4,9 @@ import { createProject } from '../models/projects.js';
 import { getAllOrganizations } from '../models/organizations.js';
 import { body, validationResult } from 'express-validator';
 import { updateProject } from '../models/projects.js';
-
+import {
+    isUserVolunteeringForProject
+} from '../models/projectVolunteersModel.js'
 
 const NUMBER_OF_UPCOMING_PROJECTS = 5;
 
@@ -37,11 +39,23 @@ export async function showProjectDetailsPage(req, res) {
 
         const categories = await getCategoriesForProject(projectId);
 
+        // NEW: volunteer status
+        let isVolunteering = false;
+        if (req.session.user) {
+            isVolunteering = await isUserVolunteeringForProject(
+                req.session.user.user_id,
+                projectId
+            );
+        }
+
         res.render("project", {
             title: project.title,
             project,
-            categories
+            categories,
+            user: req.session.user,     // needed for EJS conditionals
+            isVolunteering              // NEW
         });
+
     } catch (error) {
         console.error("Error loading project details:", error);
         res.status(500).send("Server Error");
