@@ -4,7 +4,7 @@
 
 
 <% if (user && user.role_name === 'admin') { %>
-    <a href="/edit-organization/<%= organization.organization_id %>" class="btn">Edit Organization</a>
+    <a href="/edit-organization/<%= organizationDetails.organization_id %>" class="btn">Edit Organization</a>
 <% } %>
 
 <% if (organizationDetails.logo_filename) { %>
